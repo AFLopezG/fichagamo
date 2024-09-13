@@ -37,13 +37,17 @@ app.config.globalProperties.$store=globalStore()
       globalStore().user={}
       localStorage.removeItem('tokenTicket')
       globalStore().isLoggedIn=false
-      router.push('/login')
+      globalStore().booluser=false
+      globalStore().boolcaja=false
+          router.push('/login')
     })
   }else {
     router.push('/login')
     globalStore().user={}
     globalStore().isLoggedIn=false
     localStorage.removeItem('tokenTicket')
+    globalStore().booluser=false
+    globalStore().boolcaja=false
     globalStore().isLoggedIn=false
   }
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)

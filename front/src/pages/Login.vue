@@ -14,17 +14,13 @@
 					<input type="password" class="login__input" placeholder="Password" v-model="password" required>
 				</div>
 				<button class="button login__submit" type="submit">
-					<span class="button__text">Log In Now</span>
+					<span class="button__text">Ingresar</span>
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>				
 			</form>
 			<div class="social-login">
-				<h3>log in via</h3>
-				<div class="social-icons">
-					<a href="#" class="social-login__icon fab fa-instagram"></a>
-					<a href="#" class="social-login__icon fab fa-facebook"></a>
-					<a href="#" class="social-login__icon fab fa-twitter"></a>
-				</div>
+				<h5>ATENCION FICHAS CAJAS</h5>
+
 			</div>
 		</div>
 		<div class="screen__background">
@@ -142,7 +138,7 @@ import {globalStore} from 'stores/globalStore'
 }
 
 body {
-	background: linear-gradient(90deg, #C7C5F4, #776BCC);		
+	background: linear-gradient(90deg, #C7C5F4, #cc6b6b);		
 }
 
 .container {
@@ -153,11 +149,11 @@ body {
 }
 
 .screen {		
-	background: linear-gradient(90deg, #5D54A4, #7C78B8);		
+	background: linear-gradient(90deg, #a45454, #b87878);		
 	position: relative;	
 	height: 600px;
 	width: 360px;	
-	box-shadow: 0px 0px 24px #5C5696;
+	box-shadow: 0px 0px 24px #965656;
 }
 
 .screen__content {
@@ -194,7 +190,7 @@ body {
 .screen__background__shape2 {
 	height: 220px;
 	width: 220px;
-	background: #6C63AC;	
+	background: #ac6363;	
 	top: -172px;
 	right: 0;	
 	border-radius: 32px;
@@ -203,7 +199,7 @@ body {
 .screen__background__shape3 {
 	height: 540px;
 	width: 190px;
-	background: linear-gradient(270deg, #5D54A4, #6A679E);
+	background: linear-gradient(270deg, #a45454, #9e6767);
 	top: -24px;
 	right: 0;	
 	border-radius: 32px;
@@ -212,7 +208,7 @@ body {
 .screen__background__shape4 {
 	height: 400px;
 	width: 200px;
-	background: #7E7BB9;	
+	background: #b97b7b;	
 	top: 420px;
 	right: 50px;	
 	border-radius: 60px;
@@ -232,7 +228,7 @@ body {
 .login__icon {
 	position: absolute;
 	top: 30px;
-	color: #7875B5;
+	color: #b57575;
 }
 
 .login__input {
@@ -250,7 +246,7 @@ body {
 .login__input:focus,
 .login__input:hover {
 	outline: none;
-	border-bottom-color: #6A679E;
+	border-bottom-color: #9e6767;
 }
 
 .login__submit {
@@ -265,8 +261,8 @@ body {
 	display: flex;
 	align-items: center;
 	width: 100%;
-	color: #4C489D;
-	box-shadow: 0px 2px 2px #5C5696;
+	color: #9d4848;
+	box-shadow: 0px 2px 2px #965656;
 	cursor: pointer;
 	transition: .2s;
 }
@@ -274,14 +270,14 @@ body {
 .login__submit:active,
 .login__submit:focus,
 .login__submit:hover {
-	border-color: #6A679E;
+	border-color: #9e6767;
 	outline: none;
 }
 
 .button__icon {
 	font-size: 24px;
 	margin-left: auto;
-	color: #7875B5;
+	color: #b57575;
 }
 
 .social-login {	
@@ -304,7 +300,7 @@ body {
 	padding: 20px 10px;
 	color: #fff;
 	text-decoration: none;	
-	text-shadow: 0px 0px 8px #7875B5;
+	text-shadow: 0px 0px 8px #b57575;
 }
 
 .social-login__icon:hover {

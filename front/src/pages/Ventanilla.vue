@@ -141,7 +141,9 @@ export default {
             this.$api.post('/atender',{nombrecaja:this.store.user.caja}).then(res=>{
                     // this.tickets=res.data
                     console.log('atender',res.data)
-                    if(!res.data) alert('Todos los clientes fueron atendidos')
+                    if(!res.data) {alert('Todos los clientes fueron atendidos')
+                      return false
+                    }
                   //socket.emit('atender', res.data.numero+'->'+res.data.empleado);
                     this.datosatender()
                     this.$api.post('/ultificha')

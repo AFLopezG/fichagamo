@@ -11,7 +11,7 @@
             <div style="height: 30vh;border: 1px solid #c68400;background: #ffe54c" >
                 <div class="grid" id="fichas" >
                                         <div  class="col1" style="display: flex;align-items: center;text-align: center" v-for="(item, i) in lista" :key="i">
-                                            <p style="  font-size:3em;font-weight:bold;text-align: center;width: 100%" >
+                                            <p style="  font-size:2em;font-weight:bold;text-align: center;width: 100%" >
                                                 {{ item }}
                                             </p>
                                         </div>
@@ -138,9 +138,9 @@
                 const synth = window.speechSynthesis;
                 const voices = synth.getVoices();
 
-                    //console.log(voices)
+                    console.log(voices)
                     var msg = new SpeechSynthesisUtterance('Ticket '+cadena);
-                    msg.rate = 0.5;
+                    msg.rate = 0.7;
                     msg.pitch = 2;
                     msg.volume = 1;
                     msg.lang = 'es-ES'

@@ -43,8 +43,8 @@ class TicketController extends Controller
                 ->where('tipo_id',$request->tipo_id)
                 ->whereDate('created_at','=',date('Y-m-d'))
                 ->count()+1;
-
-        $numero=$unit->abreviatura.'-'.$tipo->codigo.$num;
+        $textnum=str_pad($num, 2, '0', STR_PAD_LEFT);
+        $numero=$unit->abreviatura.'-'.$tipo->codigo.$textnum;
         $ticket=new Ticket();
         $ticket->numero=$numero;
         $ticket->unit_id=$request->unit_id;
@@ -66,8 +66,8 @@ class TicketController extends Controller
                 ->whereDate('created_at','=',date('Y-m-d'))
                 ->count()+1;
 
-
-        $numero=$unit->abreviatura.'-'.$tipo->codigo.$num;
+        $textnum=str_pad($num, 2, '0', STR_PAD_LEFT);
+        $numero=$unit->abreviatura.'-'.$tipo->codigo.$textnum;
         $ticket=new Ticket();
         $ticket->numero=$numero;
         $ticket->unit_id=$request->unit_id;

@@ -50,8 +50,8 @@
           <q-item-section><q-item-label>Principal</q-item-label><q-item-label caption class="text-grey-2"></q-item-label></q-item-section>
       </q-item>
       <q-expansion-item  active-class="bg-primary text-white" dense exact expand-separator icon="people" label="Usuarios" to="/usuarios" expand-icon="null" v-if="store.booluser"/> 
-        <q-expansion-item  active-class="bg-primary text-white" dense exact expand-separator icon="route" label="Buscar Tramite" to="/seguimiento" expand-icon="null" v-if="store.boolseg"/> 
-        <q-expansion-item  active-class="bg-primary text-white" dense exact expand-separator icon="summarize" label="Reporte Dia" to="/reporte" expand-icon="null" /> 
+        <q-expansion-item  active-class="bg-primary text-white" dense exact expand-separator icon="confirmation_number" label="Atencion Ticket" to="/ventanilla" expand-icon="null" v-if="store.boolcaja"/> 
+        <q-expansion-item  active-class="bg-primary text-white" dense exact expand-separator icon="summarize" label="Reporte Dia" to="/" expand-icon="null" /> 
       </q-list>
     </q-drawer>
 
@@ -101,6 +101,7 @@ export default defineComponent({
           this.$q.loading.hide()
           globalStore().isLoggedIn = false
           globalStore().booluser = false
+          globalStore().boolcaja = false
         })
       })
     },
