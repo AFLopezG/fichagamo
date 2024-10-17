@@ -166,14 +166,27 @@ class UserController extends Controller
             ->whereDate('updated_at',date('Y-m-d'))
             ->orderBy('id','asc')
             ->first();*/
-            $ticket = Ticket::where('estado', 'CREADO')
+            $ticketsWithUser = Ticket::where('tickets.estado', 'CREADO')
             ->whereIn('unit_id', $units)
             ->whereDate('tickets.updated_at', date('Y-m-d'))
+            ->whereNotNull('tickets.user_id') // Solo donde user_id no es null
             ->join('tipos', 'tickets.tipo_id', '=', 'tipos.id')
-            //->orderByRaw('user_id IS NULL') // Ordena primero por los tickets que tienen usuario asignado
-            ->orderBy('tipos.orden', 'asc')   // Luego, ordena por el campo orden en la tabla tipo
-            ->orderBy('tickets.id', 'asc')    // Finalmente, ordena por id para desempates
-            ->select('tickets.*')             // Selecciona todos los campos de la tabla tickets
+            ->orderBy('tipos.orden', 'asc')   
+            ->orderBy('tickets.id', 'asc')
+            ->select('tickets.*');
+        
+        // Consulta para los tickets donde user_id es null
+        $ticketsWithoutUser = Ticket::where('tickets.estado', 'CREADO')
+            ->whereIn('unit_id', $units)
+            ->whereDate('tickets.updated_at', date('Y-m-d'))
+            ->whereNull('tickets.user_id') // Solo donde user_id es null
+            ->join('tipos', 'tickets.tipo_id', '=', 'tipos.id')
+            ->orderBy('tipos.orden', 'asc')   
+            ->orderBy('tickets.id', 'asc')
+            ->select('tickets.*');
+        
+        // Unir ambas consultas
+        $ticket = $ticketsWithUser->union($ticketsWithoutUser)
             ->first();
         //return $ticket;
 //        return $ticket->numero;
@@ -200,7 +213,7 @@ class UserController extends Controller
         $ticket=Ticket::where('estado','=','ATENDIDO')
             ->whereDate('updated_at',date('Y-m-d'))
             ->whereIN('unit_id',$units)
-            ->orderBy('id','desc')
+            ->orderBy('updated_at','desc')
             ->first();
         //return $ticket;
         if(isset($ticket)){
@@ -212,7 +225,7 @@ class UserController extends Controller
         return Ticket::where('user_id','=',$request->user()->id)
             ->where('estado','ATENDIDO')
             ->whereDate('updated_at','=',date('Y-m-d'))
-            ->orderBy('id','desc')
+            ->orderBy('updated_at','desc')
             ->get();
     }
  }

@@ -25,8 +25,8 @@
                         <div class="my-card" flat bordered>
                             <q-card-section horizontal>
                                 <q-card-section>
-                                    <span style="font-size: 32px; font-weight: bold;">{{ item.abreviatura }}</span>
-                                    <br> <span style="font-size: 24px; font-weight: bold;">{{ item.nombre }}</span>
+                                    <span style="font-size: 30px; font-weight: bold;">{{ item.nombre }}</span>
+                                    <!--<br> <span style="font-size: 24px; font-weight: bold;">{{ item.nombre }}</span>-->
                                 </q-card-section>
 
                                 <q-img
