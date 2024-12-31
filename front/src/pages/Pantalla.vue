@@ -11,8 +11,8 @@
             <div style="height: 30vh;border: 1px solid #c68400;background: #ffe54c" >
                 <div class="grid" id="fichas" >
                                         <div  class="col1" style="display: flex;align-items: center;text-align: center" v-for="(item, i) in lista" :key="i">
-                                            <p style="  font-size:2em;font-weight:bold;text-align: center;width: 100%" >
-                                                {{ item }}
+                                            <p :class="{ highlighted: item.highlighted }"  style="  font-size:3.5em;font-weight:bold;text-align: center;width: 100%" >
+                                                {{ item.value }}
                                             </p>
                                         </div>
                 </div>
@@ -48,10 +48,18 @@
         })
         socket.on('atender', (data) => {
           console.log(data)
-          if(this.lista.includes(data))
-            this.lista.splice(this.lista.indexOf(data),1)
-          this.lista.unshift(data)
+          const existingIndex = this.lista.findIndex(item => item.value === data);
+  
+            if (existingIndex !== -1) {
+                // Remueve el elemento existente
+                this.lista.splice(existingIndex, 1);
+            }
+
+          this.lista.unshift({ value: data, highlighted: true })
             this.speak(data)
+            setTimeout(() => {
+                this.lista[0].highlighted = false;
+            }, 3000);
         })
         this.$store.boolSocket = true
       }
@@ -145,7 +153,7 @@
                     msg.volume = 1;
                     msg.lang = 'es-ES'
                     //window.speechSynthesis.speak(msg);
-                    msg.voice = voices[0];
+                    msg.voice = voices[1];
                     synth.speak(msg);
             },
             aumentar(){
@@ -191,4 +199,11 @@
         border: 2px solid white;
         border-radius: 1em;
     }
+    .highlighted {
+        background-color: rgb(255, 0, 0); /* Cambia el color según prefieras */
+        transition: background-color 0.5s ease;
+        border: 2px solid white;
+        border-radius: .25em;
+        
+        }
     </style>

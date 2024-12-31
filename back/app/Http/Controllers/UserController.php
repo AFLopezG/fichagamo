@@ -104,25 +104,14 @@ class UserController extends Controller
             'caja' => 'required',
             'email' => 'required|email',
             'password' => 'required',
-            'state' => 'required'
+            'state' => ''
         ]);
+
         $validated['password']=Hash::make($validated['password']);
+        $validated['caja']='CAJA'.$validated['caja'];
         $user = User::create($validated);
-        $permisos= array();
-        foreach ($request->permisos as $permiso){
-            if ($permiso['estado']==true)
-                $permisos[]=$permiso['id'];
-        }
-        $permiso = Permiso::find($permisos);
-        $user->permisos()->attach($permiso);
+
         
-        $unidades= array();
-        foreach ($request->units as $unit){
-            if ($unit['estado']==true)
-                $unidades[]=$unit['id'];
-        }
-        $unit = Permiso::find($unidades);
-        $user->units()->attach($unit);
         return($user);
      }
 

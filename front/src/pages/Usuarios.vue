@@ -10,74 +10,30 @@
   
       <q-dialog v-model="alert" full-width>
         <q-card >
-          <q-card-section class="bg-green-14 text-white">
+          <q-card-section class="bg-green-14 text-white" v-if="dato.id==undefined">
             <div class="text-h7"><q-icon name="add_circle" /> REGISTRO DE NUEVO USUARIO</div>
+          </q-card-section>
+          <q-card-section class="bg-yellow-14 text-white" v-else>
+            <div class="text-h7"><q-icon name="add_circle" />MODIFICAR USUARIO</div>
           </q-card-section>
           <q-card-section class="q-pt-xs">
             <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
               <div class="row">
-                <div class="col-md-6 col-xs-12">
-                <q-input
-                outlined
-                    v-model="dato.cedula"
-                    type="text"
-                    label="Carnet "
-                    hint="Ingresar CI"
-                    lazy-rules
-                    :rules="[(val) => val.length > 5 || 'Por favor ingresa datos']"
-                  />
-                  <q-input
-                  outlined
-                    v-model="dato.name"
-                    type="text"
-                    label="Nombre "
-                    hint="Ingresar Nombre"
-                    lazy-rules
-                    :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']"
-                  />
-                 <!-- <q-select hint="Cargo" v-model="cargo" :options="cargos" label="Cargo" outlined />-->
- 
-                  <q-input
-                  outlined
-                    v-model="dato.email"
-                    type="email"
-                    label="Email"
-                    hint="Correo electronico"
-                    lazy-rules
-                    :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']"
-                  />
-  
-                  <q-input
-                  outlined
-                    v-model="dato.password"
-                    label="Contraseña"
-                    hint="Contraseña"
-                    lazy-rules
-                    :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']"
-                    :type="typePassword?'password':'text'"
-                  >
+                  <div class="col-12"><q-input outlined v-model="dato.name" type="text" label="Nombre Completo o Area" hint="Ingresar Nombre" lazy-rules :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']" /></div>
+                  <div class="col-12"><q-input outlined v-model="dato.caja" type="text" label="Caja" prefix="CAJA" lazy-rules :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']" /></div>
+                  <div class="col-12"><q-input outlined v-model="dato.email" type="email" label="Email" hint="Correo electronico" lazy-rules :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']" /></div>
+                  <div class="col-12"><q-input outlined v-model="dato.cuenta" type="text" label="Cuenta" lazy-rules :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']" /></div>
+                  <div class="col-12"><q-input v-if="dato.id==undefined" outlined v-model="dato.password" label="Contraseña" hint="Contraseña" lazy-rules :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']" :type="typePassword?'password':'text'" >
                   <template v-slot:append>
                             <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
                           </template>
-                        </q-input>
-                  <q-input
-                  outlined
-                    v-model="dato.fechalimite"
-                    type="date"
-                    label="Fecha Limite"
-                    lazy-rules
-                    :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']"
-                  />
+                  </q-input></div>
   
-                </div>
-                <div class="col-md-6 col-xs-12">
-                  <div class="text-5">Permisos</div>
-                  <q-checkbox style="width: 100%"  v-for="(permiso,index) in permisos" :key="index" :label="permiso.nombre" v-model="permiso.estado" />
-                </div>
               </div>
   
               <div>
-                <q-btn label="Crear" type="submit" color="positive" icon="add_circle" />
+                <q-btn label="REGISTRAR" type="submit" color="green" icon="add_circle" v-if="dato.id==undefined" />
+                <q-btn label="MODIFICAR" type="submit" color="yellow" icon="edit" v-else/>
                 <q-btn label="Cancelar" icon="delete" color="negative" v-close-popup />
               </div>
             </q-form>
@@ -126,57 +82,6 @@
         </template>
       </q-table>
   
-      <q-dialog v-model="dialog_mod">
-        <q-card style="max-width: 80%; width: 50%">
-          <q-card-section class="bg-warning text-white">
-            <div class="text-h7"> <q-icon name="edit"/> MODIFICAR DATOS DE USUARIO</div>
-          </q-card-section>
-          <q-card-section class="q-pt-xs">
-            <q-form @submit="onMod" class="q-gutter-md">
-                <q-input
-                outlined
-              v-model="dato2.cedula"
-              type="text"
-              label="Carnet"
-              hint="Ingresar CI"
-              lazy-rules
-              :rules="[(val) => val.length > 5 || 'Por favor ingresa datos']"
-            />
-              <q-input
-              outlined
-                v-model="dato2.name"
-                type="text"
-                label="Nombre "
-                hint="Ingresar Nombre"
-                lazy-rules
-                :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']"
-              />
-
-              <q-input
-                filled
-                v-model="dato2.email"
-                type="email"
-                label="Email"
-                hint="Correo electronico"
-                lazy-rules
-                :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']"
-              />
-              <q-input
-              outlined
-              v-model="dato2.fechalimite"
-              type="date"
-              label="Fecah Limite"
-              lazy-rules
-              :rules="[(val) => val.length > 0 || 'Por favor ingresa datos']"
-            />
-              <div>
-                <q-btn label="Modificar" type="submit" color="positive" icon="add_circle" />
-                <q-btn label="Cancelar" icon="delete" color="negative" v-close-popup />
-              </div>
-            </q-form>
-          </q-card-section>
-        </q-card>
-      </q-dialog>
   
       <q-dialog v-model="dialog_del">
         <q-card>
@@ -200,7 +105,7 @@
           <q-card-section>
             <q-form @submit.prevent="updatepermisos">
               <!--          v-on:click.native="updatepermiso(permiso)"-->
-              <q-checkbox style="width: 100%"  v-for="(permiso,index) in permisos2" :key="index" :label="permiso.nombre" v-model="permiso.estado" />
+              <q-checkbox style="width: 100%"  v-for="(permiso,index) in permisos" :key="index" :label="permiso.nombre" v-model="permiso.estado" />
               <!--          <q-form>-->
               <!--&lt;!&ndash;            <q-checkbox v-model="permisos" />&ndash;&gt;-->
               <!--          </q-form>-->
@@ -234,11 +139,13 @@
   <script>
   import { date } from 'quasar'
   import moment from 'moment'
-  
+  import { globalStore } from '../stores/globalStore'
+
   export default {
     name: 'UserPage',
     data () {
       return {
+        store: globalStore(),
         alert: false,
         dialog_mod: false,
         dialog_del: false,
@@ -248,18 +155,17 @@
         filter: '',
         dato: { fechalimite: (moment(this.fecha).add(36, 'months').format('YYYY-MM-DD')) },
         model: '',
-        dato2: {},
         options: [],
         props: [],
         unidades: [],
         permisos: [],
-        permisos2: [],
         modelpermiso: false,
         units:[],
         uni: {},
         columns: [
           { name: 'cuenta', align: 'left', label: 'cuenta ', field: 'cuenta', sortable: true },
           { name: 'name', align: 'left', label: 'NOMBRE ', field: 'name', sortable: true },
+          { name: 'caja', align: 'left', label: 'caja ', field: 'caja', sortable: true },
           { name: 'email', align: 'left', label: 'E-MAIL', field: 'email', sortable: true },
           { name: 'estado', align: 'left', label: 'ESTADO', field: 'state', sortable: true },
           { name: 'permisos', align: 'left', label: 'PERMISOS', field: 'permisos', sortable: true },
@@ -270,15 +176,14 @@
       }
     },
     created () {
-      /* if (!this.$store.state.login.boolusuario){
+       if (!this.store.booluser){
          this.$router.replace({ path: '/' })
-      } */
+      } 
   
       this.misdatos()
       this.$api.get('permiso').then(res => {
         res.data.forEach(r => {
           this.permisos.push({ id: r.id, nombre: r.nombre, estado: false })
-          this.permisos2.push({ id: r.id, nombre: r.nombre, estado: false })
         })
       })
       this.getUnit()
@@ -298,11 +203,11 @@
         })
       },
       regDialog () {
-        this.dato = {  }
+        this.dato = { fechalimite: (moment(this.fecha).add(36, 'months').format('YYYY-MM-DD'))}
         this.alert = true
       },
       updatepermisos () {
-        this.$api.put('updatepermisos/' + this.dato2.id, { permisos: this.permisos2 }).then(() => {
+        this.$api.put('updatepermisos/' + this.dato.id, { permisos: this.permisos }).then(() => {
           // console.log(res.data)
           this.modelpermiso = false
           this.misdatos()
@@ -315,7 +220,7 @@
         })
       },
       updatecaja () {
-        this.$api.put('updatecajero/' + this.dato2.id, { units: this.units }).then(() => {
+        this.$api.put('updatecajero/' + this.dato.id, { units: this.units }).then(() => {
           // console.log(res.data)
           this.modelunit = false
           this.misdatos()
@@ -330,11 +235,11 @@
       mispermisos (i) {
         // console.log(i.row)
         this.modelpermiso = true
-        this.dato2 = i.row
+        this.dato = i.row
         let p
-        this.permisos2.forEach(pe => {
+        this.permisos.forEach(pe => {
           // console.log(pe);
-          p = this.dato2.permisos.find(r => r.pivot.permiso_id === pe.id)
+          p = this.dato.permisos.find(r => r.pivot.permiso_id === pe.id)
           // console.log(p)
           if (p !== undefined) { pe.estado = true } else { pe.estado = false }
           // console.log(p)
@@ -342,11 +247,11 @@
       },
       miscaja(i){
         this.modelunit = true
-        this.dato2 = i.row
+        this.dato = i.row
         let p
         this.units.forEach(pe => {
           // console.log(pe);
-          p = this.dato2.units.find(r => r.pivot.unit_id === pe.id)
+          p = this.dato.units.find(r => r.pivot.unit_id === pe.id)
           // console.log(p)
           if (p !== undefined) { pe.estado = true } else { pe.estado = false }
           // console.log(p)
@@ -361,24 +266,19 @@
         })
       },
       editRow (item) {
-        this.dato2 = item.row
+        this.dato = item.row
         // console.log(this.dato2)
-        this.dialog_mod = true
+        this.alert = true
       },
       deleteRow (item) {
-        this.dato2 = item.row
+        this.dato = item.row
         this.dialog_del = true
       },
       onSubmit () {
         this.$q.loading.show()
-        this.$api.post('user', {
-          cedula: this.dato.cedula,
-          name: this.dato.name,
-          password: this.dato.password,
-          email: this.dato.email,
-          fechalimite: this.dato.fechalimite,
-          permisos: this.permisos
-        }).then(() => {
+        this.dato.permisos=this.permisos
+        if (this.dato.id==undefined){
+        this.$api.post('user', this.dato).then(() => {
           // console.log(res.data)
           this.$q.notify({
             color: 'green-4',
@@ -396,30 +296,25 @@
             icon: 'close',
             color: 'red'
           })
-          this.$q.loading.hide()
         })
-      },
-      onMod () {
-        this.$q.loading.show()
-        this.$api.put('user/' + this.dato2.id, {
-          cedula: this.dato2.cedula,
-          name: this.dato2.name,
-          email: this.dato2.email,
-          fechalimite: this.dato2.fechalimite
-        }).then(() => {
+      } else{
+        this.$api.put('user/' + this.dato.id, this.dato).then(() => {
           this.$q.notify({
             color: 'green-4',
             textColor: 'white',
             icon: 'cloud_done',
             message: 'Modificado correctamente'
           })
-          this.dialog_mod = false
+          this.alert = false
           this.misdatos()
         })
+      }
+          this.$q.loading.hide()
       },
+
       onDel () {
         this.$q.loading.show()
-        this.$api.delete('user/' + this.dato2.id)
+        this.$api.delete('user/' + this.dato.id)
           .then(() => {
             this.$q.notify({
               color: 'green-4',
